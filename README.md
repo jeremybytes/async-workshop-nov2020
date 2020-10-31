@@ -3,6 +3,8 @@ Workshop: Asynchronous Programming in C# [Custom Workshop Nov 2020]
 *Level: Intermediate*  
 This repository contains slides, code samples and labs for a custom asynchronous programming workshop. Rather than being an end-to-end view of asynchronous programming, this workshop is based on the following set of topics.
 
+*Note: Slides and Labs are currently a work in progress*
+
 Topics
 ------
 * **Getting Results from Async Methods**  
