@@ -1,4 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DataProcessor.Library.Tests
 {
@@ -12,25 +14,25 @@ namespace DataProcessor.Library.Tests
         }
 
         [TestMethod]
-        public void ParseData_GoodRecord_ReturnsOne()
+        public void ParseData_WithGoodRecord_ReturnsOneRecord()
         {
             Assert.Inconclusive();
         }
 
         [TestMethod]
-        public void ParseData_BadRecord_ReturnsZero()
+        public void ParseData_WithBadRecord_ReturnsZeroRecords()
         {
             Assert.Inconclusive();
         }
 
         [TestMethod]
-        public void ParseData_BadStartDate_ReturnsZero()
+        public void ParseData_WithBadStartDate_ReturnsZeroRecords()
         {
             Assert.Inconclusive();
         }
 
         [TestMethod]
-        public void ParseData_BadRating_ReturnsZero()
+        public void ParseData_WithBadRating_ReturnsZeroRecords()
         {
             Assert.Inconclusive();
         }

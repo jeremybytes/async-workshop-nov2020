@@ -106,7 +106,7 @@ static IReadOnlyCollection<Person> ProcessData()
 
 This method loads the data from the text file, then creates the logger and data parser classes. It then calls "ParseData" and returns the records that come back.  
 
-**Additional Project**
+**Additional Project**  
 Note: The "DataProcessor.Library.Tests" project is not used for this lab. It will be used in the next one (which is a continuation).
 
 Hints
