@@ -3,8 +3,6 @@ Workshop: Asynchronous Programming in C# [Custom Workshop Nov 2020]
 *Level: Intermediate*  
 This repository contains slides, code samples and labs for a custom asynchronous programming workshop. Rather than being an end-to-end view of asynchronous programming, this workshop is based on the following set of topics.
 
-*Note: Slides and Labs are currently a work in progress*
-
 Topics
 ------
 * **Getting Results from Async Methods**  
@@ -66,7 +64,13 @@ To follow along with the Samples (which include desktop applications, web applic
 
 Labs
 ----
-These are the hands-on portions of the workshop. Labs can be completed with Visual Studio Code or Visual Studio 2019. All labs run on Windows, macOS, and Linux. Each lab consists of the following:
+These are the hands-on portions of the workshop. Labs can be completed with Visual Studio Code or Visual Studio 2019. All labs run on Windows, macOS, and Linux.  
+
+* Lab 01 - Recommended Practices and Continuations
+* Lab 02 - Unit Testing Asynchronous Methods
+* Lab 03 - Working with AggregateException
+
+Each lab consists of the following:
 
 * **Labxx-Instructions** (Markdown)  
 A markdown file containing the lab instructions. This includes the scenario, a set of goals, and step-by-step instructions.  

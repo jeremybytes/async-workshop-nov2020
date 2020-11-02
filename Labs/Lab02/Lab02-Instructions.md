@@ -588,6 +588,8 @@ Total tests: 9
  Total time: 0.8307 Seconds
  ```
 
+Conclusion
+-------------
 So this has shown us how to write tests that call asynchronous methods and how to create fake objects that have asynchronous methods. These techniques can be extended to create mock objects that can be used for testing.
 
 ***

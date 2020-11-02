@@ -494,6 +494,8 @@ static async Task Main(string[] args)
 }
 ```
 
+Conclusion
+-------------
 So this has shown us how to add asynchronous methods to our application, allow them to propagate through, and also use ".ConfigureAwait(false)" to optimize our code.
 
 ***
