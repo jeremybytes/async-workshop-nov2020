@@ -1,22 +1,31 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 namespace PersonReader.CSV.Tests
 {
     public static class TestData
     {
-        public static string WithGoodRecords =
-            "1,John,Koenig,1975/10/17,6," + Environment.NewLine +
-            "3,Leela,Turanga,1999/3/28,8,{1} {0}" + Environment.NewLine;
+        public static List<string> WithGoodRecords =
+            new List<string>()
+            {
+                "1,John,Koenig,1975/10/17,6,",
+                "3,Leela,Turanga,1999/3/28,8,{1} {0}",
+            };
 
-        public static string WithGoodAndBadRecords =
-            "1,John,Koenig,1975/10/17,6," + Environment.NewLine +
-            "INVALID DATA" + Environment.NewLine +
-            "3,Leela,Turanga,1999/3/28,8,{1} {0}" + Environment.NewLine +
-            "MORE INVALID DATA" + Environment.NewLine;
+        public static List<string> WithGoodAndBadRecords =
+            new List<string>()
+            {
+                "1,John,Koenig,1975/10/17,6,",
+                "INVALID DATA",
+                "3,Leela,Turanga,1999/3/28,8,{1} {0}",
+                "MORE INVALID DATA",
+            };
 
-        public static string WithOnlyBadRecords =
-            "INVALID DATA" + Environment.NewLine +
-            "MORE INVALID DATA" + Environment.NewLine;
+        public static List<string> WithOnlyBadRecords =
+            new List<string>()
+            {
+                "INVALID DATA",
+                "MORE INVALID DATA",
+            };
 
     }
 }

@@ -26,7 +26,7 @@ namespace PersonReader.CSV
         public async Task<IReadOnlyCollection<Person>> GetPeopleAsync()
         {
             var fileData = await FileLoader.LoadFile().ConfigureAwait(false);
-            var people = ParseString(fileData);
+            var people = ParseData(fileData);
             return people;
         }
 
@@ -36,13 +36,11 @@ namespace PersonReader.CSV
             return people?.FirstOrDefault(p => p.Id == id);
         }
 
-        private List<Person> ParseString(string csvData)
+        private List<Person> ParseData(IReadOnlyCollection<string> csvData)
         {
             var people = new List<Person>();
 
-            var lines = csvData.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-
-            foreach (string line in lines)
+            foreach (string line in csvData)
             {
                 try
                 {

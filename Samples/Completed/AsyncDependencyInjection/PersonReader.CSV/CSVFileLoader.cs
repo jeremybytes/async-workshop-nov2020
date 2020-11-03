@@ -1,11 +1,12 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace PersonReader.CSV
 {
     public interface ICSVFileLoader
     {
-        Task<string> LoadFile();
+        Task<IReadOnlyCollection<string>> LoadFile();
     }
 
     public class CSVFileLoader : ICSVFileLoader
@@ -17,12 +18,20 @@ namespace PersonReader.CSV
             this.filePath = filePath;
         }
 
-        public async Task<string> LoadFile()
+        public async Task<IReadOnlyCollection<string>> LoadFile()
         {
+            var data = new List<string>();
+
             using (var reader = new StreamReader(filePath))
             {
-                return await reader.ReadToEndAsync().ConfigureAwait(false);
+                string line;
+                while ((line = await reader.ReadLineAsync()) != null)
+                {
+                    data.Add(line);
+                }
             }
+
+            return data;
         }
     }
 }

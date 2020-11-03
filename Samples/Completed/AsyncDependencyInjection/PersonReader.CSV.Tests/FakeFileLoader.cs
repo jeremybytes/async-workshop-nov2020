@@ -1,4 +1,5 @@
 ﻿using PersonReader.CSV;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PersonReader.CSV.Tests
@@ -20,20 +21,20 @@ namespace PersonReader.CSV.Tests
             this.dataType = dataType;
         }
 
-        public Task<string> LoadFile()
+        public Task<IReadOnlyCollection<string>> LoadFile()
         {
             switch (dataType)
             {
                 case FakeDataType.Good:
-                    return Task.FromResult<string>(TestData.WithGoodRecords);
+                    return Task.FromResult<IReadOnlyCollection<string>>(TestData.WithGoodRecords);
                 case FakeDataType.Bad:
-                    return Task.FromResult<string>(TestData.WithOnlyBadRecords);
+                    return Task.FromResult<IReadOnlyCollection<string>>(TestData.WithOnlyBadRecords);
                 case FakeDataType.Mixed:
-                    return Task.FromResult<string>(TestData.WithGoodAndBadRecords);
+                    return Task.FromResult<IReadOnlyCollection<string>>(TestData.WithGoodAndBadRecords);
                 case FakeDataType.Empty:
-                    return Task.FromResult<string>(string.Empty);
+                    return Task.FromResult<IReadOnlyCollection<string>>(new List<string>());
                 default:
-                    return Task.FromResult<string>(TestData.WithGoodRecords);
+                    return Task.FromResult<IReadOnlyCollection<string>>(TestData.WithGoodRecords);
             }
 
         }
