@@ -90,15 +90,5 @@ namespace TaskAwait.Library
             }
             return new List<int>();
         }
-
-        private void ThrowAggregateException()
-        {
-            var innerEx1 = new InvalidOperationException("You can't do that!");
-            var innerEx2 = new TimeoutException("This took too long to finish!");
-
-            var aggregate = new AggregateException(innerEx1, innerEx2);
-
-            throw aggregate;
-        }
     }
 }

@@ -19,11 +19,7 @@ namespace Concurrent.UI.Web.Controllers
             Task<List<Person>> peopleTask = reader.GetPeopleAsync();
             Task<ViewResult> resultTask = peopleTask.ContinueWith(task =>
             {
-                if (task.IsFaulted)
-                {
-                    var errors = task.Exception!.Flatten().InnerExceptions;
-                    return View("Error", errors);
-                }
+                // TODO: Add error checking
 
                 List<Person> people = task.Result;
                 ViewData["RequestEnd"] = DateTime.Now;
@@ -40,14 +36,10 @@ namespace Concurrent.UI.Web.Controllers
 
             try
             {
+                // TODO: Add error checking
+
                 List<Person> people = await reader.GetPeopleAsync();
                 return View("Index", people);
-
-            }
-            catch (Exception ex)
-            {
-                var errors = new List<Exception>() { ex };
-                return View("Error", errors);
             }
             finally
             {

@@ -6,4 +6,9 @@
         <li><strong>@Html.ActionLink("Get People using Task (parallel)", "WithTask", "People")</strong></li>
         <li><strong>@Html.ActionLink("Get People using Await (not parallel)", "WithAwait", "People")</strong></li>
     </ul>
+
+    <ul>
+        <li><strong>@Html.ActionLink("Get People with Errors (partial exception)", "WithTaskPartialError", "People")</strong></li>
+        <li><strong>@Html.ActionLink("Get People with Errors (full exception)", "WithTaskFullError", "People")</strong></li>
+    </ul>
 </div>
