@@ -272,7 +272,9 @@ to
 
 ```c#
 return order;
-```
+```  
+
+We need to change the return value because of the nature of "await". When nothing in an asynchronous method is awaited, we need to explicitly return a Task (in this case, by using "Task.FromResult"). When something *is* awaited within a method, any return value is automatically wrapped in a Task. Because of this, we just return the value ("order") and rely on the compiler to take care of the rest.
 
 5. Use the task results to complete the order object.
 
@@ -348,9 +350,9 @@ Press any key to continue...
 
 This shows a single exception: an HttpRequestException. This is thrown because there are no services running for this application to connect to.
 
-This is often the only information that we need (and this is why "await" does this).
+This is often the enough information for us to handle the error (and this is why "await" does this).
 
-But we can get to all of the exceptions by adding a continuation to the "WhenAll".
+But we can get to all of the exceptions by adding a continuation to the task that is returned by "WhenAll".
 
 Adding a Continuation to Get All of the Exceptions: Step-By-Step
 -------------
@@ -438,7 +440,7 @@ InnerExceptions[0]:
 Press any key to continue...
 ```
 
-We have a little bit of a problem here. The first Exception block is fine. This shows an AggregateException that has three inner exceptions, and each of those inner exceptions is displayed.
+We have a little bit of a problem here. The first Exception block (the one between the first set of "---" markers) is fine. This shows an AggregateException that has three inner exceptions, and each of those inner exceptions is displayed.
 
 But the second Exception block shows another AggregateException. This is coming from the "orderDetailsTask".
 
