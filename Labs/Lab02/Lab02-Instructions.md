@@ -17,7 +17,7 @@ The "Starter" folder contains the code files for this lab.
 
 This solution is a console application that processes data from a text file. For details on the application, please refer to the "Overview" and "Current Classes" section of Lab 01.
 
-The "DataProcessor.Library.Tests" project contains existing tests. This uses MSTest as the testing framework. Run the tests as follows:
+The "DataProcessor.Library.Tests" project contains existing tests. These use MSTest as the testing framework. Run the tests as follows:
 
 **Visual Studio Code**  
 For Visual Studio Code, we'll run the tests from the command line. (This is the most consistent experience. If you use Visual Studio Code full time, you will want to find a plug-in for your specific test framework.)
@@ -25,13 +25,13 @@ For Visual Studio Code, we'll run the tests from the command line. (This is the 
 Here's one way to get to the right folder in Windows. In File Explorer, open the folder that contains the test project: *[working_directory]/DataProcessor.Library.Tests/*. From the "File" menu, choose "Open Windows PowerShell". This will give you a prompt to the correct location.
 
 ```
-PS C:\Lab02\DataProcessor.Library.Tests>
+PS C:\Lab02\Starter\DataProcessor.Library.Tests>
 ```
 
 From here, type "dotnet test" to run the unit tests.
 
 ```
-PS C:\Lab02\DataProcessor.Library.Tests> dotnet test
+PS C:\Lab02\Starter\DataProcessor.Library.Tests> dotnet test
 ```
 
 You should get output similar to the following:
@@ -80,7 +80,7 @@ We have three goals:
 Current Classes
 ----------------
 **DataProcessor.Library/DataParser**  
-This is the class we want to test. This class parses a data file and log errors using a separate logger class.
+This is the class we want to test. This class parses a data file and logs errors using a separate logger class.
 
 ```c#
 public async Task<IReadOnlyCollection<Person>> ParseData(IEnumerable<string> data)
@@ -158,7 +158,7 @@ public interface ILogger
 **DataProcessor.Library.Tests/TestData**  
 This class contains hard-coded test data that can be used for testing.
 
-**DataProcessor.Library.Tests/FakeLogger**
+**DataProcessor.Library.Tests/FakeLogger**  
 This is a stub for our fake logging class.
 
 ```c#
@@ -170,7 +170,7 @@ public class FakeLogger // : ILogger
 
 This will need to be filled in for testing.
 
-**DataProcessor.Library.Tests/DataParserLoggerTests**
+**DataProcessor.Library.Tests/DataParserLoggerTests**  
 This class contains tests to make sure the logger is called appropriately. 
 
 Here is a sample test:
@@ -207,8 +207,6 @@ public void ParseData_WithMixedData_ReturnsGoodRecords()
     Assert.Inconclusive();
 }
 ```
-
-This method loads the data from the text file, then creates the logger and data parser classes. It then calls "ParseData" and returns the records that come back.  
 
 Hints
 ------
@@ -260,13 +258,13 @@ public void ParseData_WithBadRecord_LoggerIsCalledOnce()
 
 Let's do a walkthrough of what this test is doing before updating it.
 
-This test is calling the "ParseData" method with 1 bad record. We expect that the logger will be called 1 time for this. This test uses Moq (a mocking framework) to check this.
+This test calls the "ParseData" method with 1 bad record. We expect that the logger will be called 1 time for this. This test uses Moq (a mocking framework) to check the behavior.
 
 In the Arrange section, a mock of "ILogger" is created using Moq. Then the "ILogger" part of the mock is passed to the DataParser class constructor.
 
 In the Act section, we call the ParseData method.
 
-In the Assert, we use the mock objects "Verify" method. In this case, we check to make sure that the "LogMessage" method on the logger is called one time (based on the "Times.Once()" parameter). And that one of the parameters is the bad record.
+In the Assert, we use the mock object's "Verify" method. In this case, we check to make sure that the "LogMessage" method on the logger is called one time (based on the "Times.Once()" parameter). And that one of the parameters is the bad record.
 
 We won't go into the full details of the Moq framework. If you're interested, a quickstart is available here: [https://github.com/Moq/moq4/wiki/Quickstart](https://github.com/Moq/moq4/wiki/Quickstart).  
 
@@ -309,18 +307,6 @@ public async Task ParseData_WithBadRecord_LoggerIsCalledOnce()
 }
 ```
 
-```c#
-using System.Threading.Tasks;
-
-namespace DataProcessor.Library
-{
-    public interface ILogger
-    {
-        Task LogMessage(string message, string data);
-    }
-}
-```
-
 4. Make the same updates to the other three tests.
 
 Change the method signatures and "await" the ParseData method in the other three unit tests.
@@ -335,7 +321,7 @@ These 4 tests still pass, but they are more resilient to changes to the code.
 
 Creating a Fake Object with Asynchronous Methods: Step-By-Step
 -------------
-For the other unit tests, we will use a fake object (rather than a mock). Depending in our scenario, sometimes mocks work well, and sometimes fake objects are preferred.
+For the other unit tests, we will use a fake object (rather than a mock). Depending in the scenario, sometimes mocks work well, and sometimes fake objects are preferred. So we will look at fakes here.
 
 1. Review the FakeLogger class.
 
@@ -393,7 +379,7 @@ It's tempting to return "null" from this method, particularly since the logger i
 
 We could create a new Task with a TaskFactory, but a better solution is to use the static "CompletedTask" property on the Task type.
 
-*Note: If you completed the first lab, then this should sound familiar.*
+*Note: If you completed the first lab, then this should look familiar.*
 
 ```c#
 public class FakeLogger : ILogger
@@ -450,7 +436,7 @@ public void ParseData_WithMixedData_ReturnsGoodRecords()
 }
 ```
 
-For this test the unit under test is the "ParseData" method. The state being tested is that the method is called with both good and bad records "Mixed Data". The expected result is that the good records are returned.
+For this test the unit under test is the "ParseData" method. The state being tested is that the method is called with both good and bad records ("Mixed Data"). The expected result is that the good records are returned.
 
 3. "Arrange" the first test.
 
@@ -565,13 +551,13 @@ public async Task ParseData_WithGoodRecord_ReturnsOneRecord()
 }
 ```
 
-*Note: I prefer to use factory methods over setup methods in order to keep things obvious. Sometimes we lose track of what setup methos are doing. For more information, see here: [Unit Testing: Setup Methods or Not?](https://jeremybytes.blogspot.com/2015/06/unit-testing-setup-methods-or-not.html)
+*Note: I prefer to use factory methods over setup methods in order to keep things obvious. Sometimes we lose track of what setup methods are doing. For more information, see this article: [Unit Testing: Setup Methods or Not?](https://jeremybytes.blogspot.com/2015/06/unit-testing-setup-methods-or-not.html)*
 
 9. Update the other three tests.
 
 The remaining tests are similar to the second test. The only difference is that they expect to have 0 records returned instead of 1 record.
 
-Note: I won't put the completed code here, you can check the "Completed" folder of the lab for that.
+*Note: I won't put the completed code here, you can check the "Completed" folder of the lab for that.*
 
 10. Re-run the tests.
 

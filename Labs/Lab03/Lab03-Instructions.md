@@ -31,7 +31,7 @@ PS C:\Lab03\Starter\ProductOrder.Viewer>
 From here, type "dotnet run" to run the application.
 
 ```
-PS C:\Lab02\DataProcessor.Library.Tests> dotnet run
+PS C:\Lab03\Starter\ProductOrder.Viewer> dotnet run
 ```
 
 You should get output similar to the following:
@@ -51,7 +51,7 @@ Press any key to continue...
  ```
 
 **Visual Studio 2019**  
-If you are using Visual Studio 2019, run the application in the debugger (using F5, "Debug|Start Debugging" from the menu, or the toolbar button).
+If you are using Visual Studio 2019, run the application in the debugger (using F5, the toolbar button, or "Debug->Start Debugging" from the menu).
 
 A console window will open with the same output as above:
 
@@ -76,7 +76,7 @@ We have several goals:
 
 1. Add functionality to the GetOrderAsync method. For this, we will make several concurrent service calls.
 
-2. Await an Task that throws an AggregateException to see how it is automatically unwrapped to show the first exception.
+2. Await a Task that throws an AggregateException to see how it is automatically unwrapped to show the first exception.
 
 3. Write a continuation so that we can see the all of the exceptions that are contained in the AggregateException.
 
@@ -276,7 +276,7 @@ return order;
 
 5. Use the task results to complete the order object.
 
-Since we awaited a "WhenAll", we know that all of the tasks are complete. This means that we can safely access the "Result" property on each to fill in our order.
+Since we awaited a "WhenAll", we know that all of the tasks are complete. This means that we can safely access the "Result" property on each task to fill in our order.
 
 ```c#
 order = orderDetailsTask.Result;
@@ -317,9 +317,9 @@ public async Task<Order> GetOrderAsync(int orderId)
 
 Awaiting the AggregateException
 -------------
-"Task.WhenAll" waits for a set of tasks to complete and returns another task. If any of the tasks throw an exception, the the returned task is "faulted" (meaning, it is marked as having generated an exception).
+"Task.WhenAll" waits for a set of tasks to complete and returns another task. If any of the tasks throw an exception, then the returned task is "faulted" (meaning, it is marked as having generated an exception).
 
-"Task.WhenAll" wraps the thrown exceptions into an AggregateException. This AggregateException has a collection of inner exceptions with all of the exceptions that are thrown. In our case, all three tasks throw an exception, so the AggregateException will contain three inner exceptions.
+"Task.WhenAll" wraps the thrown exceptions in an AggregateException. This AggregateException has a collection of inner exceptions with all of the exceptions that are thrown. In our case, all three tasks throw an exception, so the AggregateException will contain three inner exceptions.
 
 When we "await" a faulted task, it automatically unwraps the AggregateException and throws the first inner exception that it finds.
 
@@ -346,7 +346,7 @@ Inner Exception:
 Press any key to continue...
 ```
 
-This shows a single exception, an HttpRequestException. This is thrown because there are no services running for this application to connect to.
+This shows a single exception: an HttpRequestException. This is thrown because there are no services running for this application to connect to.
 
 This is often the only information that we need (and this is why "await" does this).
 
@@ -382,7 +382,7 @@ await Task.WhenAll(orderDetailsTask, customerTask, productTask)
     .ConfigureAwait(false);
 ```
 
-This continuation will only run if the task is faulted. This is important because if the task is not faulted, then the "task.Exception" would be null.
+This continuation will only run if the task is faulted. This is important because if the task is not faulted, then the "task.Exception" property would be null.
 
 TaskContinuationOptions let us restrict when a continuation will run. They are really useful. Here are some of the options I've found useful:  
 * OnlyOnFaulted
@@ -392,7 +392,7 @@ TaskContinuationOptions let us restrict when a continuation will run. They are r
 * NotOnCanceled
 * NotOnRanToCompletion
 
-3. Rerun the application.
+3. Re-run the application.
 
 When we run the application, the output will be a bit different. I've truncated some of the results for this display:
 
@@ -467,7 +467,7 @@ if (orderDetailsTask.IsCompletedSuccessfully &&
 
 This will ensure that the order is only updated if *all* of the tasks complete successfully.
 
-6. Rerun the application.
+6. Re-run the application.
 
 When we run the application, we now see the complete AggregateException (and just one AggregateException).
 

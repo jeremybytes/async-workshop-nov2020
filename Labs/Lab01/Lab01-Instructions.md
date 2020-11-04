@@ -17,7 +17,7 @@ The "Starter" folder contains the code files for this lab.
 
 This solution is a console application that processes data from a text file. The "DataLoader" class creates a list of strings from the contents of the file ("data.txt"). These strings are passed to the "DataParser" class. The DataParser is responsible for parsing the strings into Person objects (which are then displayed to the console). Errors are logged to a file using the "FileLogger" class.
 
-Run the application by pressing F5 (in either Visual Studio Code or Visual Studio 2019). This will build the application and give us some output that we can ignore from now.
+Run the application by pressing F5 (in either Visual Studio Code or Visual Studio 2019). This will build the application and give us some output that we can ignore for now.
 
 In File Explorer, open the output folder: *[working_directory]/DataProcessor/bin/Debug/netcore3.1/*. Open the "data.txt" file. This contains a number of comma-separated value (CSV) records along with some invalid records. Run the application by double-clicking "DataProcessor.exe". The output will be as follows:
 
@@ -47,7 +47,7 @@ Now open the "log.txt" file in the same folder. It contains the errors and bad r
 Lab Goals
 ----------
 
-Our goal is to create change the logging function to an asynchronous operation. Our logger can then access files asynchronously. In addition, we will allow the async operations to propagate through the application.
+Our goal is to change the logging function to an asynchronous operation. Our logger can then access files asynchronously. In addition, we will allow the async operations to propagate through the application.
 
 Current Classes
 ----------------
@@ -69,8 +69,7 @@ public void LogMessage(string message, string data)
 {
     using (var writer = new StreamWriter(logPath, true))
     {
-        writer.WriteLine(
-            $"{DateTime.Now:s}: {message} - {data}");
+        writer.WriteLine($"{DateTime.Now:s}: {message} - {data}");
     }
 }
 ```
@@ -84,7 +83,7 @@ public DataParser(ILogger logger)
     this.logger = logger ?? new NullLogger();
 }
 ```
-Note: if a logger is not passed in, then a "NullLogger" is used, this logger does nothing.
+Note: if a logger is not passed in, then a "NullLogger" is used. This is a logger that does nothing.
 
 The logger is used in the "ParseData" method of the "DataParser" class. We'll look at this method a bit more closely when making changes.
 
@@ -127,7 +126,7 @@ In DataParser.cs:
 * Let the async bubble up through this method.
 
 In Program.cs:
-* Update the "ProcessData" method as needed. (That's all the hints you get for this one).
+* Update the "ProcessData" method as needed. (That's all of the hints you get for this one).
 
 Additional Hints:  
 * Since we're dealing with library code, think about where to use ".ConfigureAwait(false)" in the code.
@@ -168,8 +167,7 @@ public Task LogMessage(string message, string data)
     using (var writer = new StreamWriter(logPath, true))
     {
         // THIS WON'T WORK AS EXPECTED
-        return writer.WriteLineAsync(
-            $"{DateTime.Now:s}: {message} - {data}");
+        return writer.WriteLineAsync($"{DateTime.Now:s}: {message} - {data}");
     }
 }
 ```
@@ -184,8 +182,7 @@ public async Task LogMessage(string message, string data)
 {
     using (var writer = new StreamWriter(logPath, true))
     {
-        await writer.WriteLineAsync(
-            $"{DateTime.Now:s}: {message} - {data}");
+        await writer.WriteLineAsync($"{DateTime.Now:s}: {message} - {data}");
     }
 }
 ```
@@ -220,7 +217,7 @@ public class NullLogger : ILogger
 }
 ```
 
-This lets the calling code that there is a completed task (and one that completed successfully). This fits in well with callers.
+This lets the calling code know that there is a completed task (and one that completed successfully). This fits in well with callers.
 
 Now that the loggers are all updated, it's time to move on to where the loggers are used.
 
@@ -390,8 +387,7 @@ public async Task LogMessage(string message, string data)
 {
     using (var writer = new StreamWriter(logPath, true))
     {
-        await writer.WriteLineAsync(
-            $"{DateTime.Now:s}: {message} - {data}")
+        await writer.WriteLineAsync($"{DateTime.Now:s}: {message} - {data}")
             .ConfigureAwait(false);
     }
 }
@@ -469,8 +465,7 @@ static async Task<IReadOnlyCollection<Person>> ProcessData()
 
     var logger = new FileLogger();
     var parser = new DataParser(logger);
-    var records = await parser.ParseData(data)
-        .ConfigureAwait(false);
+    var records = await parser.ParseData(data).ConfigureAwait(false);
     return records;
 }
 ```
