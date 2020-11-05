@@ -1,4 +1,5 @@
 ﻿using Common;
+using Microsoft.AspNetCore.Server.IIS.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace PeopleViewer.WebApp.Tests
         public async Task<Person> GetPersonAsync(int id)
         {
             var people = await GetPeopleAsync();
-            return people?.FirstOrDefault(p => p.Id == id);
+            return people.FirstOrDefault(p => p.Id == id);
         }
     }
 
@@ -35,12 +36,12 @@ namespace PeopleViewer.WebApp.Tests
     {
         public Task<IReadOnlyCollection<Person>> GetPeopleAsync()
         {
-            throw new NotImplementedException();
+            return Task.FromException<IReadOnlyCollection<Person>>(new NotImplementedException());
         }
 
         public Task<Person> GetPersonAsync(int id)
         {
-            throw new NotImplementedException();
+            return Task.FromException<Person>(new NotImplementedException());
         }
     }
 }

@@ -66,9 +66,9 @@ Labs
 ----
 These are the hands-on portions of the workshop. Labs can be completed with Visual Studio Code or Visual Studio 2019. All labs run on Windows, macOS, and Linux.  
 
-* Lab 01 - Recommended Practices and Continuations
-* Lab 02 - Unit Testing Asynchronous Methods
-* Lab 03 - Working with AggregateException
+* [Lab 01 - Recommended Practices and Continuations](https://github.com/jeremybytes/async-workshop-nov2020/tree/main/Labs/Lab01)
+* [Lab 02 - Unit Testing Asynchronous Methods](https://github.com/jeremybytes/async-workshop-nov2020/tree/main/Labs/Lab02)
+* [Lab 03 - Working with AggregateException](https://github.com/jeremybytes/async-workshop-nov2020/tree/main/Labs/Lab03)
 
 Each lab consists of the following:
 
@@ -84,9 +84,72 @@ This folder contains the completed solution. If at any time, you get stuck durin
 
 Samples
 ------- 
-The Samples folder contains the samples that are shown during the lecture portions. This code is runnable with Visual Studio Code or Visual Studio 2019; however, these samples are Windows-only. (Visual Studio 2019 is recommended due to use of the debugger and integrated unit test runner.)  
+The Samples folder contains the samples that are shown during the lecture portions. This code is runnable with Visual Studio Code or Visual Studio 2019; however, several of the sample projects are Windows only. (Visual Studio 2019 is recommended due to use of the debugger and integrated unit test runner.)  
 
-*Additional information to be provided*
+**Data Service**  
+Most of the samples get data from a web service. This service can be found here:  
+* [/Samples/Completed/UnderstandingAsync/PeopleService/](https://github.com/jeremybytes/async-workshop-nov2020/tree/main/Samples/Completed/UnderstandingAsync/People.Service)  
+* [/Samples/Completed/AsyncDependencyInjection/PersonReader.Service](https://github.com/jeremybytes/async-workshop-nov2020/tree/main/Samples/Completed/AsyncDependencyInjection/PersonReader.Service)  
+
+*Note both of the above projects are identical.*  
+
+The easiest way to start the service is to navigate to the project folder from the command-line (PowerShell, cmd, or bash), and type:
+
+```
+dotnet run
+```
+
+to start the service.
+
+**Projects & Relevant Files**  
+[*UnderstandingAsync/TaskAwait.Library/PersonReader.cs*](https://github.com/jeremybytes/async-workshop-nov2020/blob/main/Samples/Completed/UnderstandingAsync/TaskAwait.Library/PersonReader.cs)  
+Contains asynchronous methods that get data from the data service (mentioned above).
+* Topics:
+    * .ConfigureAwait(false)
+
+[*UnderstandingAsync/Concurrent.UI.Desktop/MainWindow.xaml.cs*](https://github.com/jeremybytes/async-workshop-nov2020/blob/main/Samples/Completed/UnderstandingAsync/Concurrent.UI.Desktop/MainWindow.xaml.cs)  
+Contains the UI logic for a desktop application. It calls methods from the PersonReader class (above).  
+* Topics  
+    * Awaiting tasks
+    * Task continuations
+    * Handling exceptions
+    * IsCompleted, IsFaulted
+    * Cancellation
+
+[*UnderstandingAsync/Concurrent.UI.Web/Controllers/PeopleController.cs*](https://github.com/jeremybytes/async-workshop-nov2020/blob/main/Samples/Completed/UnderstandingAsync/Concurrent.UI.Web/Controllers/PeopleController.cs)  
+Contains the controller for a web application. The controller calls methods from the PersonReader class (above).  
+* Topics  
+    * Awaiting tasks
+    * Task continuations
+    * Handling exceptions
+    * IsCompleted, IsFaulted
+    * Async controllers
+
+[*AsyncDependencyInjection/PeopleViewer.WebApp.Tests/PeopleControllerTests.cs*](https://github.com/jeremybytes/async-workshop-nov2020/blob/main/Samples/Completed/AsyncDependencyInjection/PeopleViewer.WebApp.Tests/PeopleControllerTests.cs)
+[*AsyncDependencyInjection/PeopleViewer.WebApp.Tests/FakeReaders.cs*](https://github.com/jeremybytes/async-workshop-nov2020/blob/main/Samples/Completed/AsyncDependencyInjection/PeopleViewer.WebApp.Tests/FakeReaders.cs)  
+Unit testing for a web application controller class.  
+* Topics
+    * Unit testing async methods
+    * Fake objects with async methods
+    * Task.FromResult<T>()
+
+[*AsyncDependencyInjection/PersonReader.CSV.Tests/CSVReaderTests.cs*](https://github.com/jeremybytes/async-workshop-nov2020/blob/main/Samples/Completed/AsyncDependencyInjection/PersonReader.CSV.Tests/CSVReaderTests.cs)  
+[*AsyncDependencyInjection/PersonReader.CSV.Tests/FakeFileLoader.cs*](https://github.com/jeremybytes/async-workshop-nov2020/blob/main/Samples/Completed/AsyncDependencyInjection/PersonReader.CSV.Tests/FakeFileLoader.cs)  
+Unit testing for a data reader library (CSVReader).  
+* Topics
+    * Unit testing async methods
+    * Fake objects with async methods
+    * Task.FromResult<T>()
+    * Testing for exceptions
+
+[*UnderstandingAsync/Parallel.UI.Web/Controllers/PeopleController.cs*](https://github.com/jeremybytes/async-workshop-nov2020/blob/main/Samples/Completed/UnderstandingAsync/Parallel.UI.Web/Controllers/PeopleController.cs)  
+Contains the controller for a web application that retrieves data in parallel.  
+* Topics  
+    * Parallel programming
+    * Catching partial excpetions with "await"  
+    * Catching full exceptions by using a task continuation.
+
+
 
 Additional Resources
 --------------------
