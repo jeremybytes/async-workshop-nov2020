@@ -1,8 +1,6 @@
 using Common;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PeopleViewer.WebApp.Controllers;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,37 +16,16 @@ namespace PeopleViewer.WebApp.Tests
         [TestMethod]
         public async Task WithTask_OnSuccess_ReturnsViewWithPeople()
         {
+            // Arrange
             var reader = GetGoodReader();
             var controller = new PeopleController(reader);
 
+            // Act
             var view = await controller.WithTask();
             var result = view.Model as IEnumerable<Person>;
 
+            // Assert
             Assert.AreEqual(2, result.Count());
-        }
-
-        [TestMethod]
-        public async Task WithTask_OnFailure_ReturnsErrorView()
-        {
-            var reader = GetFaultedReader();
-            var controller = new PeopleController(reader);
-
-            try
-            {
-                var view = await controller.WithTask();
-                Assert.Fail("Expected Exception not thrown");
-            }
-            catch (NotImplementedException)
-            {
-                // This is the passing state.
-                // Note: Other frameworks have an "Assert.Pass"
-                // that we can put here to make it more obvious
-                // that this is the desired state.
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail($"Expecting: {typeof(NotImplementedException)} \n Actual: {ex.GetType()}");
-            }
         }
 
         [TestMethod]
@@ -57,10 +34,34 @@ namespace PeopleViewer.WebApp.Tests
             var reader = GetGoodReader();
             var controller = new PeopleController(reader);
 
-            var view = await controller.WithAwait() as ViewResult;
+            var view = await controller.WithAwait();
             var result = view.Model as IEnumerable<Person>;
 
             Assert.AreEqual(2, result.Count());
+        }
+
+        [TestMethod]
+        public async Task GetPerson_OnSuccess_ReturnsViewWithPerson()
+        {
+            int testId = 2;
+            var reader = GetGoodReader();
+            var controller = new PeopleController(reader);
+
+            var view = await controller.GetPerson(testId);
+            var result = view.Model as IEnumerable<Person>;
+
+            Assert.AreEqual(testId, result?.First().Id);
+        }
+
+        [TestMethod]
+        public async Task WithTask_OnFailure_ReturnsErrorView()
+        {
+            var reader = GetFaultedReader();
+            var controller = new PeopleController(reader);
+
+            var view = await controller.WithTask();
+
+            Assert.AreEqual("Error", view.ViewName);
         }
 
         [TestMethod]
@@ -69,36 +70,21 @@ namespace PeopleViewer.WebApp.Tests
             var reader = GetFaultedReader();
             var controller = new PeopleController(reader);
 
-            var view = await controller.WithAwait() as ViewResult;
-            var result = view.Model as IEnumerable<Exception>;
+            var view = await controller.WithAwait();
 
-            Assert.AreEqual(typeof(NotImplementedException), result.First().GetType());
-        }
-
-        [TestMethod]
-        public async Task GetPerson_OnSuccess_ReturnsViewWithPerson()
-        {
-            var testId = 2;
-            var reader = GetGoodReader();
-            var controller = new PeopleController(reader);
-
-            var view = await controller.GetPerson(testId) as ViewResult;
-            var result = view.Model as IEnumerable<Person>;
-
-            Assert.AreEqual(testId, result.First()?.Id);
+            Assert.AreEqual("Error", view.ViewName);
         }
 
         [TestMethod]
         public async Task GetPerson_WithInvalidID_ReturnsErrorView()
         {
-            var testId = -1;
+            var testId = -10;
             var reader = GetGoodReader();
             var controller = new PeopleController(reader);
 
-            var view = await controller.GetPerson(testId) as ViewResult;
-            var result = view.Model as IEnumerable<Exception>;
+            var view = await controller.GetPerson(testId);
 
-            Assert.AreEqual(typeof(KeyNotFoundException), result.First().GetType());
+            Assert.AreEqual("Error", view.ViewName);
         }
     }
 }

@@ -63,7 +63,7 @@ namespace PersonReader.CSV.Tests
             try
             {
                 var result = await reader.GetPeopleAsync();
-                Assert.Fail();
+                Assert.Fail("Expected Excpetion was not thorown");
             }
             catch (FileNotFoundException)
             {
