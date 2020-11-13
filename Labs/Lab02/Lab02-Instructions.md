@@ -217,7 +217,7 @@ In FakeLogger.cs
 * Implement the "ILogger" interface.
 * This does not need to do anything, but you should avoid returning "null".
 
-In DataParserLoggerTests.cs:
+In DataParserTests.cs:
 * Implement the unit tests based on the method name.
 * When calling the "DataParser.ParseData" method, use the static fields in the "TestData" class. Example:
 ```c#
