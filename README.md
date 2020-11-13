@@ -177,11 +177,12 @@ Stephen Toub has great articles, too (generally with advanced insights).
 * [ConfigureAwait FAQ](https://devblogs.microsoft.com/dotnet/configureawait-faq/) - Stephen Toub  
 
 Additional Links  
-* [Background tasks with hosted services in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-3.0&tabs=visual-studio) (Microsoft Docs)
-* [Running async tasks on app startup in ASP.NET Core 3.0](https://andrewlock.net/running-async-tasks-on-app-startup-in-asp-net-core-3/) (Andrew Lock)
-* [AsyncGuidance](https://github.com/davidfowl/AspNetCoreDiagnosticScenarios/blob/master/AsyncGuidance.md) (David Fowler - Microsoft)
-* [Dependency injection in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-5.0) (Microsoft Docs)
-* [Async provider in .NET Core DI](https://stackoverflow.com/questions/43240405/async-provider-in-net-core-di) (StackOverflow)
-* [Safe storage of app secrets in development in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-5.0&tabs=windows) (Microsoft Docs)
+* [Running async tasks on app startup in ASP.NET Core](https://andrewlock.net/running-async-tasks-on-app-startup-in-asp-net-core-part-1/) (Andrew Lock)  
+This is a series of articles from the author of the book [ASP.NET Core in Action](https://www.manning.com/books/asp-net-core-in-action) (second edition is currently in production)
+* [AsyncGuidance](https://github.com/davidfowl/AspNetCoreDiagnosticScenarios/blob/master/AsyncGuidance.md) (David Fowler - Microsoft)  
+Note the section on using a static factory for asynchronous construction. This may be part of a possible solution.
+* [Background tasks with hosted services in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-3.0&tabs=visual-studio) (Microsoft Docs)  
+Some general techniques for background tasks (this may not apply directly).
+
 
 For more information, visit [jeremybytes.com](http://www.jeremybytes.com).
