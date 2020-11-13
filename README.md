@@ -176,4 +176,12 @@ Stephen Toub has great articles, too (generally with advanced insights).
 * [Do I Need to Dispose of Tasks?](https://devblogs.microsoft.com/pfxteam/do-i-need-to-dispose-of-tasks/) - Stephen Toub
 * [ConfigureAwait FAQ](https://devblogs.microsoft.com/dotnet/configureawait-faq/) - Stephen Toub  
 
+Additional Links  
+* [Background tasks with hosted services in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-3.0&tabs=visual-studio) (Microsoft Docs)
+* [Running async tasks on app startup in ASP.NET Core 3.0](https://andrewlock.net/running-async-tasks-on-app-startup-in-asp-net-core-3/) (Andrew Lock)
+* [AsyncGuidance](https://github.com/davidfowl/AspNetCoreDiagnosticScenarios/blob/master/AsyncGuidance.md) (David Fowler - Microsoft)
+* [Dependency injection in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-5.0) (Microsoft Docs)
+* [Async provider in .NET Core DI](https://stackoverflow.com/questions/43240405/async-provider-in-net-core-di) (StackOverflow)
+* [Safe storage of app secrets in development in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-5.0&tabs=windows) (Microsoft Docs)
+
 For more information, visit [jeremybytes.com](http://www.jeremybytes.com).
